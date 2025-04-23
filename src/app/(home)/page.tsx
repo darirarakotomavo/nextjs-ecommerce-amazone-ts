@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getProductsByTag } from "@/lib/actions/product.actions";
 import data from "@/lib/data";
 import { getAllCategories, getProductsForCard } from "@/lib/product.actions";
-// import { getAllCategories, getProductsForCard } from "@/lib/product.actions";
 import { toSlug } from "@/lib/utils";
 
 export default async function HomePage() {
@@ -43,7 +42,7 @@ export default async function HomePage() {
       items: newArrivals,
       link: {
         text: "View All",
-        href: "/search?tag=new-arrival",
+        href: "/search?tag=nouveau-arrivage",
       },
     },
     {
@@ -51,7 +50,7 @@ export default async function HomePage() {
       items: bestSellers,
       link: {
         text: "View All",
-        href: "/search?tag=new-arrival",
+        href: "/search?tag= meilleur ventes",
       },
     },
     {
@@ -59,7 +58,7 @@ export default async function HomePage() {
       items: featureds,
       link: {
         text: "Shop Now",
-        href: "/search?tag=new-arrival",
+        href: "/search?tag=produits futurs",
       },
     },
   ];

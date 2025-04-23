@@ -1,4 +1,8 @@
-import { Link, ShoppingCartIcon, UserIcon } from "lucide-react";
+// import { ShoppingCartIcon, UserIcon } from "lucide-react";
+// import CartButton from "./cart-button";
+
+import { ShoppingCartIcon, UserIcon } from "lucide-react";
+import Link from "next/link";
 import CartButton from "./cart-button";
 
 export default function Menu() {
@@ -19,3 +23,4 @@ export default function Menu() {
     </div>
   );
 }
+
