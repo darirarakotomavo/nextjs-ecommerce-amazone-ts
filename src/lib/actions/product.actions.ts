@@ -26,6 +26,37 @@ export async function getProductBySlug(slug: string) {
   if (!product) throw new Error("Product not found");
   return JSON.parse(JSON.stringify(product)) as IProduct;
 }
+export async function getAllCategories() {
+  await connectToDatabase();
+  const categories = await Product.find({ isPublished: true }).distinct(
+    "category"
+  );
+  return categories;
+}
+ export async function getProductsForCard({
+  tag,
+  limit = 4,
+}: {
+  tag: string;
+  limit?: number;
+}) {
+  await connectToDatabase();
+  const products = await Product.find(
+    { tags: { $in: [tag] }, isPublished: true },
+    {
+      name: 1,
+      href: { $concat: ["/product/", "$slug"] },
+      image: { $arrayElemAt: ["$images", 0] },
+    }
+  )
+    .sort({ createdAt: "desc" })
+    .limit(limit);
+  return JSON.parse(JSON.stringify(products)) as {
+    name: string;
+    href: string;
+    image: string;
+  }[];
+} 
 // GET RELATED PRODUCTS: PRODUCTS WITH SAME CATEGORY
 export async function getRelatedProductsByCategory({
   category,

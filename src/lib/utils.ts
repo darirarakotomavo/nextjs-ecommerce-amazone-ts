@@ -1,6 +1,28 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+import qs from "query-string"
+export function formUrlQuery({
+  params,
+  key,
+  value,
+}: {
+  params: string;
+  key: string;
+  value: string | null;
+}) {
+  const currentUrl = qs.parse(params);
+
+  currentUrl[key] = value;
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
+}
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -94,9 +116,9 @@ export function timeUntilMidnight(): { hours: number; minutes: number } {
 
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
-    month: 'short', // abbreviated month name (e.g., 'Oct')
-    year: 'numeric', // abbreviated month name (e.g., 'Oct')
-    day: 'numeric', // numeric day of the month (e.g., '25')
+    month: 'short', // abbreviated month name (e.g., 'Avr')
+    year: 'numeric', // abbreviated year name (e.g., '25')
+    day: 'numeric', // numeric day of the month (e.g., '17')
     hour: 'numeric', // numeric hour (e.g., '8')
     minute: 'numeric', // numeric minute (e.g., '30')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
@@ -109,7 +131,7 @@ export const formatDateTime = (dateString: Date) => {
   }
   const timeOptions: Intl.DateTimeFormatOptions = {
     hour: 'numeric', // numeric hour (e.g., '8')
-    minute: 'numeric', // numeric minute (e.g., '30')
+    minute: 'numeric', // numeric minute (e.g., '54')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   }
   const formattedDateTime: string = new Date(dateString).toLocaleString(
@@ -130,5 +152,7 @@ export const formatDateTime = (dateString: Date) => {
     timeOnly: formattedTime,
   }
 }
-// ligne 70 - eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+export function formatId(id: string) {
+  return `..${id.substring(id.length - 6)}`;
+}
